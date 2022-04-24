@@ -17,16 +17,18 @@ const SearchForm = () => {
     console.log(domain);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="card">
       <label>
-        Search for a domain name:
+        Search domain:
         <input
           type="text"
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
         />
       </label>
-      <button type="submit">search</button>
+      <div className="btn-row">
+        <button type="submit">SEARCH</button>
+      </div>
     </form>
   );
 };
