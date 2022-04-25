@@ -39,7 +39,7 @@ body {
   margin-top: 30px;
   background: #404040;
   color: #ffffff;
-  width: 50%;
+  width: 80%;
   padding: 20px;
 
   overflow: auto;
@@ -76,4 +76,11 @@ body {
   border-radius: 3px;
   border: none;
   height: 34px;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 800px) {
+  .App {
+    width: 100%;
+  }
 }

@@ -1,35 +1,56 @@
 import { useState } from "react";
 import axios from "axios";
+import useForm from "../utlis/useForm";
 
-const baseURL = "localhost:8000/domain";
 const SearchForm = () => {
-  // const [url, setUrl] = React.useState(null);
-  const [domain, setDomain] = useState("");
+  const [values, handleChange] = useForm({ domain: "" });
+  const [data, setData] = useState(null);
 
-  // React.useEffect(() => {
-  //   axios.get(baseURL).then((response) => {
-  //     setUrl(response.data);
-  //   });
-  // }, []);
+  const getInfo = () => {
+    //hit api running locally, get CORS errors,
+    // `localhost:8000/domain/${param}`
+    //same functionality hitting 3rd party api directly
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(domain);
+    const param = values.domain;
+    axios
+
+      .get(`http://ip-api.com/json/${param}`)
+      .then((response) => {
+        console.log(response.data);
+        const data = response.data;
+        setData(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return data;
   };
   return (
-    <form onSubmit={handleSubmit} className="card">
+    <div className="card">
       <label>
         Search domain:
         <input
           type="text"
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
+          name="domain"
+          value={values.domain}
+          onChange={handleChange}
+          placeholder="google.com"
         />
       </label>
       <div className="btn-row">
-        <button type="submit">SEARCH</button>
+        <button onClick={getInfo}>SEARCH</button>
       </div>
-    </form>
+
+      {data && (
+        <div className="card2">
+          <h2>About this Domain:</h2>
+          <h3> Domain {data.status === "success" ? "Found" : "Not Found"} </h3>
+          <p> Domain ISP: {data.isp || "N/A"} </p>
+          <p>Organization: {data.org || "N/A"}</p>
+        </div>
+      )}
+    </div>
   );
 };
 
