@@ -6,14 +6,10 @@ const SearchForm = () => {
   const [values, handleChange] = useForm({ domain: "" });
   const [data, setData] = useState(null);
 
-  //hit api running locally, get CORS errors,
-  // `localhost:8000/domain/${domain}`
-  //same functionality hitting 3rd party api directly
-
   const getInfo = () => {
     const domain = values.domain;
     axios
-      .get(`http://ip-api.com/json/${domain}`)
+      .get(`/domain/${domain}`)
       .then((response) => {
         console.log(response.data);
         const data = response.data;
