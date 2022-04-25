@@ -6,15 +6,14 @@ const SearchForm = () => {
   const [values, handleChange] = useForm({ domain: "" });
   const [data, setData] = useState(null);
 
+  //hit api running locally, get CORS errors,
+  // `localhost:8000/domain/${domain}`
+  //same functionality hitting 3rd party api directly
+
   const getInfo = () => {
-    //hit api running locally, get CORS errors,
-    // `localhost:8000/domain/${param}`
-    //same functionality hitting 3rd party api directly
-
-    const param = values.domain;
+    const domain = values.domain;
     axios
-
-      .get(`http://ip-api.com/json/${param}`)
+      .get(`http://ip-api.com/json/${domain}`)
       .then((response) => {
         console.log(response.data);
         const data = response.data;
@@ -26,6 +25,7 @@ const SearchForm = () => {
 
     return data;
   };
+
   return (
     <div className="card">
       <label>
